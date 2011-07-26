@@ -27,9 +27,7 @@ class Chosen
       @options = $.extend(defaultOpts, options)
     else
       @options = defaultOpts
-    
-    console.log(@options)
-    
+        
     @form_field = elmn
     @form_field_jq = $ @form_field
     @is_multiple = @form_field.multiple
@@ -53,7 +51,10 @@ class Chosen
   set_up_html: ->
     @container_id = @form_field.id + "_chzn"
     
-    @f_width = @form_field_jq.width()
+    if @form_field_jq.data('width') != undefined
+      @f_width = @form_field_jq.data('width')
+    else
+      @f_width = @form_field_jq.width()
     
     @default_text = if @form_field_jq.attr 'title' then @form_field_jq.attr 'title' else @default_text_default
     
@@ -72,7 +73,6 @@ class Chosen
     else
       searchText = ''
       if @options.search
-        console.log('making search')
         searchText = '<div class="chzn-search"><input type="text" /></div>'
       container_div.html '<a href="javascript:void(0)" class="chzn-single"><span>' + @default_text + '</span><div><b></b></div></a><div class="chzn-drop" style="left:-9000px;">' + searchText + '<ul class="chzn-results"></ul></div>'
 

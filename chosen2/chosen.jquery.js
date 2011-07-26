@@ -31,7 +31,6 @@
       } else {
         this.options = defaultOpts;
       }
-      console.log(this.options);
       this.form_field = elmn;
       this.form_field_jq = $(this.form_field);
       this.is_multiple = this.form_field.multiple;
@@ -54,7 +53,11 @@
     Chosen.prototype.set_up_html = function() {
       var container_div, dd_top, dd_width, searchText, sf_width;
       this.container_id = this.form_field.id + "_chzn";
-      this.f_width = this.form_field_jq.width();
+      if (this.form_field_jq.data('width') !== void 0) {
+        this.f_width = this.form_field_jq.data('width');
+      } else {
+        this.f_width = this.form_field_jq.width();
+      }
       this.default_text = this.form_field_jq.attr('title') ? this.form_field_jq.attr('title') : this.default_text_default;
       container_div = $("<div />", {
         id: this.container_id,
@@ -70,7 +73,6 @@
       } else {
         searchText = '';
         if (this.options.search) {
-          console.log('making search');
           searchText = '<div class="chzn-search"><input type="text" /></div>';
         }
         container_div.html('<a href="javascript:void(0)" class="chzn-single"><span>' + this.default_text + '</span><div><b></b></div></a><div class="chzn-drop" style="left:-9000px;">' + searchText + '<ul class="chzn-results"></ul></div>');
