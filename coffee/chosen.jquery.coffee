@@ -19,8 +19,16 @@ $.fn.extend({
 
 class Chosen
 
-  constructor: (elmn) ->
+  constructor: (elmn, data, options) ->
     this.set_default_values()
+    defaultOpts = {search: true}
+    
+    if (options != undefined)
+      @options = $.extend(defaultOpts, options)
+    else
+      @options = defaultOpts
+    
+    console.log(@options)
     
     @form_field = elmn
     @form_field_jq = $ @form_field
@@ -55,10 +63,18 @@ class Chosen
       style: 'width: ' + (@f_width) + 'px;' #use parens around @f_width so coffeescript doesn't think + ' px' is a function parameter
     })
     
+    
     if @is_multiple
-      container_div.html '<ul class="chzn-choices"><li class="search-field"><input type="text" value="' + @default_text + '" class="default" style="width:25px;" /></li></ul><div class="chzn-drop" style="left:-9000px;"><ul class="chzn-results"></ul></div>'
+      searchText = ''
+      if @options.search
+        searchText = '<li class="search-field"><input type="text" value="' + @default_text + '" class="default" style="width:25px;" /></li>'
+      container_div.html '<ul class="chzn-choices">' + searchText + '</ul><div class="chzn-drop" style="left:-9000px;"><ul class="chzn-results"></ul></div>'
     else
-      container_div.html '<a href="javascript:void(0)" class="chzn-single"><span>' + @default_text + '</span><div><b></b></div></a><div class="chzn-drop" style="left:-9000px;"><div class="chzn-search"><input type="text" /></div><ul class="chzn-results"></ul></div>'
+      searchText = ''
+      if @options.search
+        console.log('making search')
+        searchText = '<div class="chzn-search"><input type="text" /></div>'
+      container_div.html '<a href="javascript:void(0)" class="chzn-single"><span>' + @default_text + '</span><div><b></b></div></a><div class="chzn-drop" style="left:-9000px;">' + searchText + '<ul class="chzn-results"></ul></div>'
 
     @form_field_jq.hide().after container_div
     @container = ($ '#' + @container_id)

@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="chosen/chosen.css" />
+  </head>
+  <body>
+    <select class="chzn-select-nonum">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+    <select class="chzn-select">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+    <script src="chosen2/chosen.jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(".chzn-select").chosen();
+    $(".chzn-select-nonum").chosen(null, {search: false})
+    </script>
+  </body>
+</html>
